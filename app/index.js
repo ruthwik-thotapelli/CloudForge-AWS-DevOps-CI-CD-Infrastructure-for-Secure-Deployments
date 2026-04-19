@@ -8,6 +8,7 @@ app.get("/", (req, res) => {
 
   // Burn CPU for ~500ms
   while (Date.now() - start < 500) {
+    
     // intentional CPU loop
   }
 
