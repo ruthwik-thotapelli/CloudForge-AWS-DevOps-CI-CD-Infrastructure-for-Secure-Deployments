@@ -1,379 +1,505 @@
 <div align="center">
 
-<img src="https://img.shields.io/badge/CloudForge-AWS%20DevOps%20Platform-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="CloudForge" height="40"/>
+<img src="https://img.shields.io/badge/☁️_CloudForge-AWS%20DevOps%20CI/CD%20Platform-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" alt="CloudForge" height="45"/>
 
-<h1>☁️ CloudForge — AWS DevOps CI/CD Infrastructure</h1>
+<br/><br/>
 
-<p><strong>Enterprise-grade CI/CD pipeline that automates containerized deployments on AWS ECS using GitHub Actions, Docker, and Amazon ECR — from code commit to live production in minutes.</strong></p>
+<h3>Enterprise-Grade CI/CD Infrastructure for Secure, Automated Cloud Deployments</h3>
 
-<br/>
-
-[![CI/CD Pipeline](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml/badge.svg)](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml)
-![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Amazon ECR](https://img.shields.io/badge/Amazon%20ECR-Container%20Registry-FF9900?style=flat-square&logo=amazon-aws&logoColor=white)
-![Amazon ECS](https://img.shields.io/badge/Amazon%20ECS-Orchestration-FF9900?style=flat-square&logo=amazon-ecs&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-Automation-2088FF?style=flat-square&logo=github-actions&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-18-339933?style=flat-square&logo=node.js&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+<p>Fully automated pipeline — from <code>git push</code> to live production on AWS ECS in under 3 minutes.<br/>Built with Docker, GitHub Actions, Amazon ECR & ECS.</p>
 
 <br/>
 
-[📖 Architecture](#-architecture) • [🚀 Pipeline](#-cicd-pipeline) • [⚙️ Setup](#️-setup--configuration) • [🔐 Secrets](#-github-secrets-reference) • [📂 Structure](#-project-structure) • [📡 API](#-api-endpoints) • [🔁 Rollback](#-rollback-strategy)
+[![Deploy to ECS](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml/badge.svg)](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml)
+&nbsp;
+![Docker](https://img.shields.io/badge/Docker-Multi--Stage%20Build-2496ED?style=flat-square&logo=docker&logoColor=white)
+&nbsp;
+![Amazon ECS](https://img.shields.io/badge/Amazon%20ECS-Fargate-FF9900?style=flat-square&logo=amazon-ecs&logoColor=white)
+&nbsp;
+![Amazon ECR](https://img.shields.io/badge/Amazon%20ECR-Private%20Registry-FF9900?style=flat-square&logo=amazon-aws&logoColor=white)
+&nbsp;
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI/CD-2088FF?style=flat-square&logo=github-actions&logoColor=white)
+&nbsp;
+![Node.js](https://img.shields.io/badge/Node.js-18--Alpine-339933?style=flat-square&logo=node.js&logoColor=white)
+&nbsp;
+![Express](https://img.shields.io/badge/Express.js-REST%20API-000000?style=flat-square&logo=express&logoColor=white)
+&nbsp;
+![License](https://img.shields.io/badge/License-MIT-22c55e?style=flat-square)
+
+<br/>
+
+[📌 Overview](#-overview) · [🏗️ Architecture](#️-architecture) · [🚀 Pipeline](#-cicd-pipeline-deep-dive) · [🐳 Docker](#-docker-strategy) · [📡 API](#-api-endpoints) · [⚙️ Setup](#️-setup-guide) · [🔐 Secrets](#-github-secrets-reference) · [🔁 Rollback](#-rollback-procedures) · [🔒 Security](#-security-practices)
 
 </div>
 
+<br/>
+
 ---
+
+<br/>
 
 ## 📌 Overview
 
-**CloudForge** is a production-ready **DevOps CI/CD platform** built on AWS that demonstrates real-world cloud automation. Every code push to the `main` branch automatically triggers a full pipeline — building a Docker image, pushing it to **Amazon ECR**, and deploying a new revision to **Amazon ECS** — all without manual intervention.
+**CloudForge** is a production-ready DevOps CI/CD platform built on AWS that automates the complete software delivery lifecycle. Every push to `main` triggers an automated pipeline that builds a Docker image, pushes it to a private **Amazon ECR** registry, and deploys a new revision to **Amazon ECS** — with zero-downtime rolling updates and built-in rollback safety.
 
-### 🎯 What This Project Demonstrates
+This isn't a tutorial project — it's a **real infrastructure blueprint** demonstrating how production teams ship code.
 
-| Skill Area | Technologies Used |
-|---|---|
-| **CI/CD Automation** | GitHub Actions, YAML pipelines |
-| **Containerization** | Docker, multi-stage builds |
-| **Cloud Infrastructure** | AWS ECS (Fargate/EC2), Amazon ECR |
-| **IAM & Security** | Least-privilege IAM, GitHub Secrets |
-| **Release Engineering** | Automated rollout, forced ECS deployment |
-| **Application Layer** | Node.js, Express.js, health endpoints |
+<br/>
+
+### 🎯 What This Project Proves
+
+<table>
+<tr><td width="200"><strong>🔄 CI/CD Mastery</strong></td><td>GitHub Actions pipelines with concurrency control, SHA tagging, and deployment gates</td></tr>
+<tr><td><strong>🐳 Containerization</strong></td><td>Multi-stage Docker builds, Alpine images, non-root users, health checks</td></tr>
+<tr><td><strong>☁️ AWS Cloud Infra</strong></td><td>ECS orchestration, ECR private registry, IAM least-privilege, rolling deploys</td></tr>
+<tr><td><strong>🔒 DevSecOps</strong></td><td>No secrets in code, private registries, non-root containers, pinned action versions</td></tr>
+<tr><td><strong>📡 Production App</strong></td><td>Express.js with structured JSON logging, graceful shutdown, health/readiness/metrics endpoints</td></tr>
+<tr><td><strong>🔁 Release Safety</strong></td><td>ECS rolling deployments, health check gates, manual + automatic rollback support</td></tr>
+</table>
+
+<br/>
 
 ---
+
+<br/>
 
 ## 🏗️ Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        CLOUDFORGE ARCHITECTURE                       │
-└─────────────────────────────────────────────────────────────────────┘
-
-  Developer                GitHub                   AWS Cloud
-  ─────────           ──────────────         ──────────────────────────
-  │ Code  │  push     │  Repository │         │                        │
-  │ Push  │ ────────► │  + Actions  │         │   ┌──────────────────┐ │
-  └───────┘           └──────┬──────┘         │   │   Amazon ECR     │ │
-                             │                │   │  (Container      │ │
-                     ┌───────▼────────┐       │   │   Registry)      │ │
-                     │  GitHub Actions │       │   └────────┬─────────┘ │
-                     │  CI/CD Runner  │       │            │            │
-                     │                │       │   ┌────────▼─────────┐ │
-                     │  1. Checkout   │       │   │   Amazon ECS     │ │
-                     │  2. AWS Auth   │──────►│   │  (Container      │ │
-                     │  3. ECR Login  │       │   │  Orchestration)  │ │
-                     │  4. Docker     │       │   │                  │ │
-                     │     Build+Push │       │   │  ┌─────────────┐ │ │
-                     │  5. ECS Deploy │       │   │  │  Task (v2)  │ │ │
-                     └────────────────┘       │   │  │  Container  │ │ │
-                                              │   │  │  :3000      │ │ │
-                                              │   │  └─────────────┘ │ │
-                                              │   └──────────────────┘ │
-                                              └────────────────────────┘
+╔══════════════════════════════════════════════════════════════════════════════════╗
+║                          CLOUDFORGE ARCHITECTURE                                ║
+╠══════════════════════════════════════════════════════════════════════════════════╣
+║                                                                                  ║
+║   DEVELOPER          GITHUB                         AWS CLOUD                    ║
+║   ─────────       ─────────────               ──────────────────────────         ║
+║                                                                                  ║
+║   ┌─────────┐     ┌──────────────┐            ┌──────────────────────┐          ║
+║   │         │     │  Repository  │            │    Amazon ECR         │          ║
+║   │  Code   │────►│  (Source of  │            │  ┌────────────────┐  │          ║
+║   │  Push   │     │   Truth)     │            │  │ cloudforge:abc │  │          ║
+║   │         │     └──────┬───────┘            │  │ cloudforge:lat │  │          ║
+║   └─────────┘            │                    │  └────────┬───────┘  │          ║
+║                          │ trigger            └───────────┼──────────┘          ║
+║                  ┌───────▼────────┐                       │                      ║
+║                  │ GitHub Actions │         docker push    │   docker pull        ║
+║                  │   Workflow     │──────────────────────►│                      ║
+║                  │                │                       │                      ║
+║                  │ 1. Checkout    │            ┌──────────▼──────────┐           ║
+║                  │ 2. AWS Auth    │            │    Amazon ECS        │           ║
+║                  │ 3. ECR Login   │            │  ┌────────────────┐ │           ║
+║                  │ 4. Docker Build│            │  │   Task (v2)    │ │           ║
+║                  │ 5. Push to ECR │            │  │   Container    │ │           ║
+║                  │ 6. ECS Deploy  │──deploy──►│  │   :3000        │ │           ║
+║                  │ 7. Wait Stable │            │  └────────────────┘ │           ║
+║                  └────────────────┘            │  Rolling Update     │           ║
+║                                                └─────────────────────┘           ║
+║                                                         │                        ║
+║                                                    ┌────▼─────┐                  ║
+║                                                    │  Users   │                  ║
+║                                                    │  🌐 :80  │                  ║
+║                                                    └──────────┘                  ║
+╚══════════════════════════════════════════════════════════════════════════════════╝
 ```
 
-### Component Breakdown
+### Component Roles
 
-| Component | Role |
-|---|---|
-| **GitHub Repository** | Source of truth; every commit to `main` triggers the pipeline |
-| **GitHub Actions Runner** | Executes the CI/CD workflow in an isolated `ubuntu-latest` environment |
-| **Amazon ECR** | Private Docker registry — stores versioned container images securely |
-| **Amazon ECS** | Orchestrates the containerized application with zero-downtime rolling deployments |
-| **Docker** | Packages the Node.js app and all dependencies into a portable image |
-| **AWS IAM** | Scoped credentials via GitHub Secrets — no hardcoded keys |
-
----
-
-## 🚀 CI/CD Pipeline
-
-```
- ┌──────────┐    ┌────────────┐    ┌──────────────┐    ┌───────────────┐    ┌─────────────┐
- │   Code   │    │ Configure  │    │  ECR Login   │    │  Docker Build │    │  ECS Force  │
- │ Checkout │───►│    AWS     │───►│              │───►│  Tag & Push   │───►│  New Deploy │
- │          │    │ Credentials│    │  (OIDC Auth) │    │  to ECR       │    │             │
- └──────────┘    └────────────┘    └──────────────┘    └───────────────┘    └─────────────┘
-     ✅ git           ✅ IAM             ✅ ECR              ✅ Image              ✅ Live
-  actions/          secrets           registry           versioned             production
- checkout@v4       @v4 action         login @v2          & pushed             deployment
-```
-
-### Pipeline Stages Explained
-
-#### **Stage 1 — Checkout** `actions/checkout@v4`
-Pulls the latest commit from the `main` branch into the runner's workspace.
-
-#### **Stage 2 — AWS Authentication** `aws-actions/configure-aws-credentials@v4`
-Authenticates securely with AWS using GitHub Secrets (no IAM keys in code). Credentials are scoped to the minimum required permissions.
-
-#### **Stage 3 — ECR Login** `aws-actions/amazon-ecr-login@v2`
-Authenticates Docker with the private Amazon ECR registry. The registry URL is output as a step variable for downstream use.
-
-#### **Stage 4 — Build, Tag & Push**
-```bash
-docker build -t $ECR_REPOSITORY:latest -f app/Dockerfile app
-docker tag  $ECR_REPOSITORY:latest  $ECR_REGISTRY/$ECR_REPOSITORY:latest
-docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
-```
-Builds the production Docker image from `app/Dockerfile`, tags it, and pushes it to the private ECR repository.
-
-#### **Stage 5 — ECS Force Deployment**
-```bash
-aws ecs update-service \
-  --cluster $ECS_CLUSTER \
-  --service $ECS_SERVICE \
-  --force-new-deployment \
-  --region $AWS_REGION
-```
-Forces ECS to pull the latest image tag and perform a **rolling replacement** of running tasks — achieving zero-downtime deployment.
-
----
-
-## ⚙️ Setup & Configuration
-
-### Prerequisites
-
-Before running this pipeline, ensure you have the following provisioned on AWS:
-
-- [ ] **AWS Account** with appropriate IAM permissions
-- [ ] **Amazon ECR Repository** — private registry for Docker images
-- [ ] **Amazon ECS Cluster** — with a running service and task definition
-- [ ] **IAM User or Role** — with permissions for ECR push and ECS update-service
-- [ ] **GitHub Repository** — forked or cloned from this project
-
-### Step 1 — Fork This Repository
-
-```bash
-git clone https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments.git
-cd CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments
-```
-
-### Step 2 — Create AWS Resources
-
-```bash
-# Create an ECR repository
-aws ecr create-repository \
-  --repository-name cloudforge-app \
-  --region us-east-1
-
-# (Assumes ECS cluster and service are already provisioned)
-```
-
-### Step 3 — Configure GitHub Secrets
-
-Go to your repository → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
-
-Add all secrets listed in the [Secrets Reference](#-github-secrets-reference) section below.
-
-### Step 4 — Trigger the Pipeline
-
-Push any change to `main`:
-
-```bash
-git add .
-git commit -m "feat: trigger first deployment"
-git push origin main
-```
-
-Navigate to **Actions** tab → **Deploy to ECS** → watch the pipeline run live. ✅
-
----
-
-## 🔐 GitHub Secrets Reference
-
-All sensitive values are stored as **encrypted GitHub Secrets** — never hardcoded in source.
-
-| Secret Name | Description | Example Value |
+| Component | Service | Purpose |
 |---|---|---|
-| `AWS_ACCESS_KEY_ID` | IAM user access key ID | `AKIAIOSFODNN7EXAMPLE` |
-| `AWS_SECRET_ACCESS_KEY` | IAM user secret access key | `wJalrXUtnFEMI/K7MDENG/...` |
-| `AWS_REGION` | AWS region for all resources | `us-east-1` |
-| `ECR_REPOSITORY` | Name of your ECR repository | `cloudforge-app` |
-| `ECS_CLUSTER` | Name of your ECS cluster | `cloudforge-cluster` |
-| `ECS_SERVICE` | Name of your ECS service | `cloudforge-service` |
+| **Source Control** | GitHub | Single source of truth, triggers pipelines on every push to `main` |
+| **CI/CD Engine** | GitHub Actions | Runs the build, push, and deploy workflow in isolated `ubuntu-latest` runners |
+| **Container Registry** | Amazon ECR | Stores Docker images privately with SHA + `latest` dual-tagging |
+| **Orchestration** | Amazon ECS | Runs containers with rolling deployments & automatic health check gating |
+| **Application** | Node.js + Express | Production API with health, readiness, and metrics endpoints |
+| **Security** | AWS IAM + GitHub Secrets | Least-privilege access, encrypted secrets, no credentials in source |
 
-> **Security Note:** The IAM user/role should follow **least-privilege principle** — only grant permissions for `ecr:*` on the specific repository and `ecs:UpdateService` on the specific cluster/service.
-
----
-
-## 📂 Project Structure
-
-```
-CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/
-│
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # ← CI/CD pipeline (GitHub Actions)
-│
-├── app/
-│   ├── Dockerfile              # ← Docker image definition
-│   ├── index.js                # ← Express.js application
-│   └── package.json            # ← Node.js dependencies & metadata
-│
-└── README.md                   # ← You are here
-```
+<br/>
 
 ---
 
-## 📡 API Endpoints
+<br/>
 
-The deployed Node.js application exposes the following HTTP routes:
+## 🚀 CI/CD Pipeline Deep Dive
 
-| Method | Route | Description | Response |
+```
+  ┌───────────┐    ┌────────────┐    ┌───────────┐    ┌──────────────────┐    ┌───────────┐    ┌─────────────┐    ┌──────────┐
+  │  📥 Code  │    │  🔐 AWS    │    │  🔑 ECR   │    │  🐳 Docker Build │    │  🚢 ECS   │    │  ⏳ Wait    │    │  📊 Done │
+  │  Checkout │───►│  Auth      │───►│  Login    │───►│  Tag & Push      │───►│  Deploy   │───►│  Stable    │───►│  Summary │
+  └───────────┘    └────────────┘    └───────────┘    └──────────────────┘    └───────────┘    └─────────────┘    └──────────┘
+   actions/v4       IAM creds         Private ECR       SHA + latest tag       Force new        services-stable    Commit SHA
+                    from secrets      registry auth     dual-push to ECR      deployment        health gate        Image URI
+```
+
+### Stage Details
+
+| # | Stage | Action | What Happens |
 |---|---|---|---|
-| `GET` | `/` | Root endpoint — triggers a load test response | `200 OK` — success message |
-| `GET` | `/health` | Health check for ALB Target Group | `200 OK` — `"OK"` |
+| 1 | **Checkout** | `actions/checkout@v4` | Pulls latest commit from `main` into the runner workspace |
+| 2 | **AWS Auth** | `aws-actions/configure-aws-credentials@v4` | Authenticates with AWS using encrypted GitHub Secrets — zero credentials in code |
+| 3 | **ECR Login** | `aws-actions/amazon-ecr-login@v2` | Authenticates Docker CLI with private Amazon ECR registry |
+| 4 | **Build & Push** | `docker build` + `docker push` | Builds multi-stage Docker image, tags with `$GITHUB_SHA` + `latest`, pushes both |
+| 5 | **ECS Deploy** | `aws ecs update-service --force-new-deployment` | Triggers ECS rolling deployment — pulls new image, replaces tasks one by one |
+| 6 | **Wait Stable** | `aws ecs wait services-stable` | Blocks until ECS confirms all new tasks are healthy and serving traffic |
+| 7 | **Summary** | Console output | Logs commit SHA, image URI, cluster, service, and who triggered the deploy |
 
-### Health Check
+### Pipeline Features
 
-Used by the **ALB (Application Load Balancer)** target group to verify container health before routing traffic.
+- 🔒 **Concurrency lock** — Only one deployment runs at a time (no parallel deploys)
+- 🔄 **Manual trigger** — Supports `workflow_dispatch` for on-demand deployments
+- 🏷️ **Immutable tagging** — Every image tagged with commit SHA for traceability
+- ✅ **Health gate** — Pipeline waits until ECS confirms deployment is stable
 
-```bash
-curl http://<your-ec2-or-alb-dns>/health
-# → "OK"
-```
+<br/>
 
 ---
 
-## 🐳 Docker Image
+<br/>
 
-### Dockerfile Breakdown
+## 🐳 Docker Strategy
+
+### Multi-Stage Production Dockerfile
 
 ```dockerfile
-FROM node:18                # Official Node.js 18 base image
+# ─── Stage 1: Builder ─────────────────────────────
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
 
-WORKDIR /app                # Set working directory inside container
-
-COPY package.json ./        # Copy dependency manifest first (cache optimization)
-RUN npm install             # Install production dependencies
-
-COPY . .                    # Copy application source code
-
-EXPOSE 3000                 # Declare the listening port
-
-CMD ["node", "index.js"]    # Start the Express server
+# ─── Stage 2: Production ──────────────────────────
+FROM node:18-alpine AS production
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --chown=appuser:appgroup . .
+ENV NODE_ENV=production
+USER appuser
+EXPOSE 3000
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
+  CMD wget --spider http://localhost:3000/health || exit 1
+CMD ["node", "index.js"]
 ```
+
+### Why Multi-Stage?
+
+| Aspect | Before (Single-Stage) | After (Multi-Stage) |
+|---|---|---|
+| **Base Image** | `node:18` (~900MB) | `node:18-alpine` (~120MB) |
+| **User** | root (unsafe) | `appuser` (non-root) |
+| **Health Check** | None | Built-in `HEALTHCHECK` instruction |
+| **Layer Caching** | Basic | Optimized `package.json`-first copy |
+| **Attack Surface** | Full Debian + dev tools | Minimal Alpine, production-only |
 
 ### Build & Run Locally
 
 ```bash
-# Build the image
-docker build -t cloudforge-app -f app/Dockerfile app
+# Build
+docker build -t cloudforge-app -f app/Dockerfile app/
 
-# Run the container
+# Run
 docker run -p 3000:3000 cloudforge-app
 
-# Test locally
+# Test
 curl http://localhost:3000/health
+# → {"status":"healthy","timestamp":"...","uptime":"1.23s"}
 ```
+
+<br/>
 
 ---
 
-## 🔁 Rollback Strategy
+<br/>
 
-CloudForge supports rapid rollback if a bad deployment is detected.
+## 📡 API Endpoints
 
-### Automatic (via ECS)
-ECS keeps the previous task revision running during a rolling deployment. If the new task fails health checks, ECS automatically stops the rollout and maintains the previous version.
+The CloudForge application exposes four production-ready HTTP endpoints:
 
-### Manual Rollback via AWS CLI
+| Method | Endpoint | Purpose | Response |
+|---|---|---|---|
+| `GET` | `/` | Application info & status | `200` — JSON with app name, version, uptime |
+| `GET` | `/health` | **ALB/ECS health check** | `200` — `{"status": "healthy"}` |
+| `GET` | `/ready` | Readiness probe | `200` — `{"ready": true}` |
+| `GET` | `/metrics` | Prometheus-style metrics | `200` — `text/plain` with uptime + heap stats |
+
+### Example Responses
 
 ```bash
-# Step 1 — List available image tags in ECR
+# Root — App Info
+$ curl http://localhost:3000/
+{
+  "app": "CloudForge",
+  "description": "Enterprise-grade AWS DevOps CI/CD Platform",
+  "version": "1.2.0",
+  "status": "running",
+  "uptime": "42.50s",
+  "startedAt": "2026-07-15T17:45:00.000Z"
+}
+
+# Health Check — Used by ALB Target Group
+$ curl http://localhost:3000/health
+{
+  "status": "healthy",
+  "timestamp": "2026-07-15T17:46:00.000Z",
+  "uptime": "102.33s"
+}
+
+# Metrics — Prometheus-Compatible
+$ curl http://localhost:3000/metrics
+# HELP process_uptime_seconds Application uptime in seconds
+# TYPE process_uptime_seconds gauge
+process_uptime_seconds 102.33
+# HELP nodejs_heap_used_bytes Heap memory used
+# TYPE nodejs_heap_used_bytes gauge
+nodejs_heap_used_bytes 12345678
+```
+
+<br/>
+
+---
+
+<br/>
+
+## ⚙️ Setup Guide
+
+### Prerequisites
+
+| Requirement | Details |
+|---|---|
+| AWS Account | With IAM permissions for ECR + ECS |
+| Amazon ECR | Private repository created |
+| Amazon ECS | Cluster + service + task definition running |
+| GitHub | This repo forked or cloned |
+| Docker | Installed locally (for testing) |
+
+### Quick Start
+
+```bash
+# 1. Clone
+git clone https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments.git
+cd CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments
+
+# 2. Create ECR repository (if not exists)
+aws ecr create-repository --repository-name cloudforge-app --region us-east-1
+
+# 3. Configure GitHub Secrets (see table below)
+# Settings → Secrets → Actions → New repository secret
+
+# 4. Push to main — pipeline runs automatically
+git add .
+git commit -m "feat: initial deployment"
+git push origin main
+
+# 5. Watch the pipeline
+# → GitHub Actions tab → "CloudForge — Build & Deploy to AWS ECS"
+```
+
+<br/>
+
+---
+
+<br/>
+
+## 🔐 GitHub Secrets Reference
+
+All credentials are stored as **encrypted GitHub Secrets** — never committed to source code.
+
+| Secret | Description | Example |
+|---|---|---|
+| `AWS_ACCESS_KEY_ID` | IAM access key ID | `AKIAIOSFODNN7EXAMPLE` |
+| `AWS_SECRET_ACCESS_KEY` | IAM secret key | `wJalrXUtnFEMI/K7MDENG/...` |
+| `AWS_REGION` | AWS region for all resources | `us-east-1` |
+| `ECR_REPOSITORY` | ECR repository name | `cloudforge-app` |
+| `ECS_CLUSTER` | ECS cluster name | `cloudforge-cluster` |
+| `ECS_SERVICE` | ECS service name | `cloudforge-service` |
+
+> ⚠️ **IAM Policy**: Follow least-privilege — only grant `ecr:GetAuthorizationToken`, `ecr:BatchCheckLayerAvailability`, `ecr:PutImage`, `ecr:InitiateLayerUpload`, `ecr:UploadLayerPart`, `ecr:CompleteLayerUpload` for ECR, and `ecs:UpdateService`, `ecs:DescribeServices` for ECS.
+
+<br/>
+
+---
+
+<br/>
+
+## 📂 Project Structure
+
+```
+CloudForge-AWS-DevOps-CI-CD-Infrastructure/
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml              # CI/CD pipeline — build, push, deploy
+│                                    #   ├─ SHA + latest dual-tagging
+│                                    #   ├─ Concurrency lock
+│                                    #   ├─ ECS stability wait gate
+│                                    #   └─ Manual trigger support
+│
+├── app/
+│   ├── Dockerfile                   # Multi-stage production build
+│   │                                #   ├─ node:18-alpine (120MB vs 900MB)
+│   │                                #   ├─ Non-root user (appuser)
+│   │                                #   └─ Built-in HEALTHCHECK
+│   │
+│   ├── index.js                     # Express.js application
+│   │                                #   ├─ Structured JSON logging
+│   │                                #   ├─ /health, /ready, /metrics
+│   │                                #   ├─ Graceful SIGTERM/SIGINT shutdown
+│   │                                #   └─ Error handling middleware
+│   │
+│   └── package.json                 # Dependencies & scripts
+│                                    #   ├─ npm start / npm run dev
+│                                    #   └─ Engine pinning: node >=18
+│
+└── README.md                        # ← This file
+```
+
+<br/>
+
+---
+
+<br/>
+
+## 🔁 Rollback Procedures
+
+### Automatic (Built-In)
+
+ECS performs **rolling deployments** by default. If a new task fails its health check (`/health`), ECS:
+1. Stops the failing task
+2. Keeps the previous healthy tasks running
+3. Does **not** complete the rollout
+
+**No data loss. No downtime. Automatic.**
+
+### Manual Rollback via CLI
+
+```bash
+# 1. List previous image tags (every deploy is tagged with commit SHA)
 aws ecr describe-images \
   --repository-name cloudforge-app \
-  --region us-east-1
+  --query 'imageDetails[*].imageTags' \
+  --output table
 
-# Step 2 — Update the ECS task definition to point to the previous image tag
-# (Update your task definition JSON with the old image URI)
+# 2. Update task definition to use the previous SHA image tag
+# (edit your task definition JSON → image: <ecr-uri>:<previous-sha>)
 
-# Step 3 — Force a new deployment using the previous task definition revision
+# 3. Force deploy the previous revision
 aws ecs update-service \
   --cluster cloudforge-cluster \
   --service cloudforge-service \
-  --task-definition cloudforge-task:PREVIOUS_REVISION \
-  --force-new-deployment \
-  --region us-east-1
+  --task-definition cloudforge-task:<PREVIOUS_REVISION> \
+  --force-new-deployment
 ```
 
+### Why SHA Tagging Matters
+
+| Tag | Purpose | Rollback |
+|---|---|---|
+| `latest` | Always points to newest image | ❌ Can't rollback with `latest` |
+| `abc123f` (SHA) | Immutable, tied to exact commit | ✅ Pin any task to any past commit |
+
+<br/>
+
 ---
+
+<br/>
 
 ## 🔒 Security Practices
 
-This project follows DevSecOps principles throughout:
+| Practice | Implementation |
+|---|---|
+| **No secrets in code** | All credentials in GitHub Encrypted Secrets |
+| **Private registry** | ECR repository is not publicly accessible |
+| **Non-root container** | Application runs as `appuser`, never `root` |
+| **Least-privilege IAM** | Credentials scoped to only ECR push + ECS deploy |
+| **Pinned action versions** | `@v4`, `@v2` — prevents supply-chain attacks |
+| **Alpine base image** | Minimal attack surface, no unnecessary OS packages |
+| **Health check gating** | Bad deploys are blocked before reaching users |
+| **Concurrency control** | Prevents parallel deployments from causing conflicts |
 
-- ✅ **No secrets in source code** — All credentials stored in GitHub Encrypted Secrets
-- ✅ **Private ECR repository** — Docker images are not publicly accessible
-- ✅ **IAM least-privilege** — Pipeline credentials scoped to only required actions
-- ✅ **Official base images** — Using `node:18` from Docker Hub's verified publisher
-- ✅ **Pinned action versions** — Using `@v4` and `@v2` tags to prevent supply-chain attacks
+<br/>
 
 ---
+
+<br/>
 
 ## 🌐 Tech Stack
 
 <div align="center">
 
-| Category | Technology | Purpose |
+| Layer | Technology | Role |
 |---|---|---|
-| **Runtime** | Node.js 18 | Application server |
-| **Framework** | Express.js | HTTP routing |
-| **Containerization** | Docker | Image packaging |
-| **Registry** | Amazon ECR | Private image store |
-| **Orchestration** | Amazon ECS | Container deployment |
-| **CI/CD** | GitHub Actions | Pipeline automation |
-| **Cloud** | AWS | Infrastructure provider |
-| **IaC (Secrets)** | GitHub Secrets | Secure credential management |
+| **Runtime** | ![Node.js](https://img.shields.io/badge/Node.js-18-339933?style=flat-square&logo=node.js&logoColor=white) | Application server |
+| **Framework** | ![Express](https://img.shields.io/badge/Express-4.x-000000?style=flat-square&logo=express&logoColor=white) | HTTP routing & middleware |
+| **Container** | ![Docker](https://img.shields.io/badge/Docker-Multi--Stage-2496ED?style=flat-square&logo=docker&logoColor=white) | Image packaging |
+| **Registry** | ![ECR](https://img.shields.io/badge/Amazon%20ECR-Private-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) | Image storage |
+| **Orchestrator** | ![ECS](https://img.shields.io/badge/Amazon%20ECS-Rolling%20Deploy-FF9900?style=flat-square&logo=amazon-ecs&logoColor=white) | Container management |
+| **CI/CD** | ![Actions](https://img.shields.io/badge/GitHub%20Actions-Automated-2088FF?style=flat-square&logo=github-actions&logoColor=white) | Pipeline engine |
+| **Security** | ![IAM](https://img.shields.io/badge/AWS%20IAM-Least%20Privilege-DD344C?style=flat-square&logo=amazon-aws&logoColor=white) | Access control |
 
 </div>
 
+<br/>
+
 ---
+
+<br/>
 
 ## 📊 Pipeline Status
 
-| Branch | Status |
-|---|---|
-| `main` | [![Deploy to ECS](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml) |
+| Branch | Workflow | Status |
+|---|---|---|
+| `main` | Deploy to ECS | [![Deploy](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml) |
+
+<br/>
 
 ---
+
+<br/>
 
 ## 🤝 Contributing
 
-Contributions, improvements, and issue reports are welcome!
+```bash
+# 1. Fork this repo
+# 2. Create your feature branch
+git checkout -b feat/amazing-feature
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feat/your-feature`
-3. Commit your changes: `git commit -m "feat: add your feature"`
-4. Push to the branch: `git push origin feat/your-feature`
-5. Open a Pull Request
+# 3. Commit with conventional commits
+git commit -m "feat: add amazing feature"
+
+# 4. Push and open a PR
+git push origin feat/amazing-feature
+```
+
+All PRs are welcome — whether it's a bug fix, feature, or documentation improvement.
+
+<br/>
 
 ---
+
+<br/>
+
+<div align="center">
 
 ## 👨‍💻 Author
 
-<div align="center">
-
 **Thotapelli Ruthwik**
-*DevOps & Cloud Engineer*
+<br/>
+*DevOps & Cloud Infrastructure Engineer*
+
+<br/>
 
 [![GitHub](https://img.shields.io/badge/GitHub-ruthwik--thotapelli-181717?style=for-the-badge&logo=github)](https://github.com/ruthwik-thotapelli)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-ruthwik--thotapelli-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/ruthwik-thotapelli)
+&nbsp;&nbsp;
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ruthwik--thotapelli-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ruthwik-thotapelli)
 
-</div>
-
----
-
-## ⭐ Support
-
-If this project helped you learn or you found it useful:
-
-- Give it a **⭐ Star** on GitHub
-- **Fork** it and build your own variation
-- Share it with your network
+<br/>
 
 ---
 
-<div align="center">
+<br/>
 
-<sub>Built with ❤️ using AWS, Docker, and GitHub Actions</sub>
+⭐ **If this project helped you** — give it a star, fork it, or share it.
+
+<br/>
+
+<sub>Built with ❤️ using AWS · Docker · GitHub Actions</sub>
 
 </div>
