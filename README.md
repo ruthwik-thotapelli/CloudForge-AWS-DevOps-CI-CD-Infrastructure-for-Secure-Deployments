@@ -3,16 +3,19 @@
 
   <br/><br/>
 
-  <img src="https://img.shields.io/badge/CloudForge-v2.4.1-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" height="32"/>
-  <img src="https://img.shields.io/badge/uptime-99.97%25-22c55e?style=for-the-badge" height="32"/>
-  <img src="https://img.shields.io/badge/avg_deploy-2m_38s-3b82f6?style=for-the-badge" height="32"/>
+  <!-- Top identity badges -->
+  <img src="https://img.shields.io/badge/CloudForge-v2.4.1-FF9900?style=for-the-badge&logo=amazon-aws&logoColor=white" height="34"/>
+  <img src="https://img.shields.io/badge/uptime-99.97%25-22c55e?style=for-the-badge&logo=statuspage&logoColor=white" height="34"/>
+  <img src="https://img.shields.io/badge/avg_deploy-2m_38s-3b82f6?style=for-the-badge&logo=github-actions&logoColor=white" height="34"/>
+  <img src="https://img.shields.io/badge/deployments-148-a855f7?style=for-the-badge&logo=rocket&logoColor=white" height="34"/>
+  <img src="https://img.shields.io/badge/rollbacks-2-ef4444?style=for-the-badge&logo=amazonaws&logoColor=white" height="34"/>
 
   <h1 align="center">⚙️ CloudForge CI/CD</h1>
   <h3 align="center">Enterprise-Grade, Zero-Downtime Automated Deployment Infrastructure on AWS</h3>
 
   <br/>
 
-  <!-- Pipeline status -->
+  <!-- Row 1: Pipeline + Core AWS -->
   <a href="https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml">
     <img src="https://github.com/ruthwik-thotapelli/CloudForge-AWS-DevOps-CI-CD-Infrastructure-for-Secure-Deployments/actions/workflows/deploy.yml/badge.svg?branch=main" alt="Deploy to ECS" />
   </a>
@@ -21,11 +24,33 @@
   &nbsp;
   <img src="https://img.shields.io/badge/Amazon_ECR-Private_Registry-FF9900?style=flat-square&logo=amazon-aws" />
   &nbsp;
+  <img src="https://img.shields.io/badge/Amazon_IAM-Least_Privilege-DD344C?style=flat-square&logo=amazon-aws" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Amazon_ALB-Health_Gated-FF9900?style=flat-square&logo=amazon-aws" />
+
+  <br/>
+
+  <!-- Row 2: Toolchain -->
   <img src="https://img.shields.io/badge/Docker-Multi--Stage_Alpine-2496ED?style=flat-square&logo=docker" />
   &nbsp;
   <img src="https://img.shields.io/badge/GitHub_Actions-CI/CD_Engine-2088FF?style=flat-square&logo=github-actions" />
   &nbsp;
   <img src="https://img.shields.io/badge/Node.js-18_LTS-339933?style=flat-square&logo=node.js" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Express.js-REST_API-000000?style=flat-square&logo=express" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Alpine_Linux-Minimal_Base-0D597F?style=flat-square&logo=alpine-linux&logoColor=white" />
+
+  <br/>
+
+  <!-- Row 3: Quality & standards -->
+  <img src="https://img.shields.io/badge/Security-DevSecOps-22c55e?style=flat-square&logo=shield" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Image_Size-127_MB-6366f1?style=flat-square&logo=docker&logoColor=white" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Zero_Secrets_In_Code-✓-22c55e?style=flat-square" />
+  &nbsp;
+  <img src="https://img.shields.io/badge/Non--Root_Container-✓-22c55e?style=flat-square" />
   &nbsp;
   <img src="https://img.shields.io/badge/License-MIT-22c55e?style=flat-square" />
 
@@ -104,28 +129,37 @@ The pipeline **hard-blocks** until AWS ALB reports `200 OK` on `/health` for all
 
 ```mermaid
 graph TD
-    A[👨‍💻 Developer\ngit push main] -->|webhook| B[GitHub Actions Runner\nubuntu-latest]
+    classDef dev fill:#1e293b,stroke:#6366f1,stroke-width:2px,color:#a5b4fc
+    classDef ci fill:#1a2e1a,stroke:#22c55e,stroke-width:2px,color:#86efac
+    classDef docker fill:#0c2340,stroke:#2496ED,stroke-width:2px,color:#7dd3fc
+    classDef ecr fill:#2d1a00,stroke:#FF9900,stroke-width:2px,color:#fdba74
+    classDef ecs fill:#2d1a00,stroke:#FF9900,stroke-width:2px,color:#fdba74
+    classDef alb fill:#1a1a2e,stroke:#a855f7,stroke-width:2px,color:#d8b4fe
+    classDef user fill:#0f2820,stroke:#10b981,stroke-width:3px,color:#6ee7b7
+    classDef gate fill:#2d0a0a,stroke:#ef4444,stroke-width:2px,color:#fca5a5
 
-    subgraph pipeline [🔧 7-Stage Pipeline]
-        B --> C[1. Checkout Code\nactions/checkout@v4]
-        C --> D[2. AWS Auth\nconfigure-aws-credentials@v4]
-        D --> E[3. ECR Login\namazon-ecr-login@v2]
-        E --> F[4. Docker Build\nnode:18-alpine multi-stage]
-        F --> G[5. Push to ECR\nSHA + latest dual tag]
-        G --> H[6. ECS Rolling Deploy\nforce-new-deployment]
-        H --> I[7. Wait for Stability\naws ecs wait services-stable]
+    A["👨‍💻 Developer\ngit push main"]:::dev -->|webhook trigger| B["⚡ GitHub Actions\nubuntu-latest runner"]:::ci
+
+    subgraph pipeline ["  🔧 7-Stage Automated Pipeline  "]
+        B --> C["① Checkout\nactions/checkout@v4"]:::ci
+        C --> D["② AWS Auth\nconfigure-aws-credentials@v4"]:::ci
+        D --> E["③ ECR Login\namazon-ecr-login@v2"]:::ci
+        E --> F["④ Docker Build\nnode:18-alpine multi-stage"]:::docker
+        F --> G["⑤ Push to ECR\nSHA + latest dual tag"]:::ecr
+        G --> H["⑥ ECS Rolling Deploy\nforce-new-deployment"]:::ecs
+        H --> I["⑦ ██ HEALTH GATE ██\naws ecs wait services-stable"]:::gate
     end
 
-    subgraph aws [☁️ AWS Cloud]
-        J[(Amazon ECR\nPrivate Registry)]
-        K[Amazon ECS\nFargate Cluster]
-        L[ALB Target Group\nHealth: /health]
-        M((🌐 End Users))
+    subgraph aws ["  ☁️ AWS Cloud Infrastructure  "]
+        J[("🗄 Amazon ECR\nPrivate Registry")]:::ecr
+        K["🚀 Amazon ECS\nFargate Cluster"]:::ecs
+        L["⚖️ ALB Target Group\nProbe: /health 200 OK"]:::alb
+        M(("🌐 End Users")):::user
     end
 
     G -->|push image| J
-    H -->|deploy| K
-    K -->|pull image| J
+    H -->|rolling deploy| K
+    K -->|pull immutable image| J
     K --> L --> M
 ```
 
